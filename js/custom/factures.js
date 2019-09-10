@@ -40,7 +40,7 @@
 				}
 			},
 			multipleInvoicesNextStatut: function(listeFactures) {
-				var results = new Array(), chkbx = document.getElementsByName('sousTotalChkbx'), dateType = document.getElementById("type_date").value, date_debut = document.getElementById("date_debut").value, date_fin = document.getElementById("date_fin").value, codeType = document.getElementById("type").value, statut = document.getElementById("etat").value, modePaiement = document.getElementById("mode_paiement").value;
+				var results = new Array(), chkbx = $('[name="sousTotalChkbx"]'), dateType = $("#type_date").val(), date_debut = $("#date_debut").val(), date_fin = $("#date_fin").val(), codeType = $("#type").val(), statut = $("#etat").val(), modePaiement = $("#mode_paiement").val();
 				for(let i = 0, length1 = chkbx.length; i < length1; i++){
         	if (chkbx[i].checked == true) {
         		//On récupère dans le table echeancier, pour chaque ligne, l'identifiant de la facture et on le garde dans results
@@ -63,7 +63,7 @@
 		$.get($factures.newInvoiceSnippet, function (codeHtml){
 	  	var html = codeHtml, state = '', modePaiement = '', invoiceType = '';
 	  	$.each(data, function (key, val) {
-	    	html = $js.insertProperty(html, key, val);
+	    	codeHtml = $js.insertProperty(codeHtml, key, val);
 	    	if(key =='CODE_STATUT') {
 	    		state = val;
 	    	}
@@ -74,11 +74,11 @@
 	    		invoiceType = val;
 	    	}
 	  	});
-	  	var divContainer = document.getElementById("main-content");
+	  	var divContainer = $("#main-content");
 	  	$js.loadScript("#main-content", $factures.listeDynamiqueScript);
 	  	$js.loadScript("#main-content", $factures.eventsScript);
 	  	$js.loadScript("#main-content", $factures.dateScript);
-	  	divContainer.innerHTML = html;
+	  	divContainer.html(codeHtml);
 	 		optionSelect(state, "etat");
 	 		optionSelect(modePaiement, "mode_paiement");
 	 		optionSelect(invoiceType, "type");
@@ -86,129 +86,135 @@
 	}
 	function displayListeFactures(liste) {
 		$.get($factures.echeancierSnippet, function (codeHtml){
-			var html = codeHtml, divResults = document.createElement("div");
-			divResults.innerHTML = html;
-			var divContainer = document.getElementById("main-content");
-		 	divContainer.innerHTML = "";
-		 	divContainer.appendChild(divResults);
+			var divContainer = $("#main-content").html('');
+		 	divContainer.append('<div>' + codeHtml + '</div>');
 		 	$js.loadScript("#main-content", $factures.eventsScript);
 
-		 	var typeDate = document.getElementById("type_date"),date_debut = document.getElementById("date_debut"),	date_fin = document.getElementById("date_fin"),	statut = document.getElementById("etat"),	type = document.getElementById("type"),	modePaiement = document.getElementById("mode_paiement"), sort_lab = document.getElementById("sort_lab"),	sort_invoice_date = document.getElementById("sort_invoice_date"),	sort_payment_date = document.getElementById("sort_payment_date"),	sort_type = document.getElementById("sort_type"), sort_amount = document.getElementById("sort_amount"), sort_status = document.getElementById("sort_status"), sort_payment = document.getElementById("sort_payment");
+		 	var typeDate = $("#type_date"), 
+			 	date_debut = $("#date_debut"), 
+			 	date_fin = $("#date_fin"), 
+			 	statut = $("#etat"),	
+			 	type = $("#type"),	
+			 	modePaiement = $("#mode_paiement"), 
+			 	sort_lab = $("#sort_lab"),	
+			 	sort_invoice_date = $("#sort_invoice_date"),	
+			 	sort_payment_date = $("#sort_payment_date"),	
+			 	sort_type = $("#sort_type"), 
+			 	sort_amount = $("#sort_amount"), 
+			 	sort_status = $("#sort_status"), 
+			 	sort_payment = $("#sort_payment"),
+			 	sort = liste[0]['sort'];
+
 		 	optionSelect(liste[0]['dateType'], "type_date");
 			optionSelect(liste[0]['statut'], "etat");
 			optionSelect(liste[0]['modePaiement'], "mode_paiement");
 			optionSelect(liste[0]['codeType'], "type");
-			date_debut.value = liste[0]['date_debut'];
-			date_fin.value = liste[0]['date_fin'];
-			var sort = liste[0]['sort'];
-			$('#date_debut').datepicker($.datepicker.regional["fr"]);
-			$('#date_fin').datepicker($.datepicker.regional["fr"]);
-			$('#date_debut').removeClass('hasDatepicker');
-			$('#date_fin').removeClass('hasDatepicker');
-			$('#date_debut').datepicker({
+			date_debut.val(liste[0]['date_debut']);
+			date_fin.val(liste[0]['date_fin']);
+
+			date_debut.datepicker($.datepicker.regional["fr"]);
+			date_fin.datepicker($.datepicker.regional["fr"]);
+			date_debut.removeClass('hasDatepicker');
+			date_fin.removeClass('hasDatepicker');
+			date_debut.datepicker({
 				onSelect: function (dateSelected, i){
-			 		date_debut.value = dateSelected;
-			 		$factures.display.displayInvoiceList(typeDate.value, date_debut.value, date_fin.value, type.value, statut.value, modePaiement.value);
+			 		date_debut.val(dateSelected);
+			 		$factures.display.displayInvoiceList(typeDate.val(), date_debut.val(), date_fin.val(), type.val(), statut.val(), modePaiement.val());
 			 	}
 			});
-			$('#date_fin').datepicker({
+			date_fin.datepicker({
 				onSelect: function (dateSelected, i){
-			 		date_fin.value = dateSelected;
-			 		$factures.display.displayInvoiceList(typeDate.value, date_debut.value, date_fin.value, type.value, statut.value, modePaiement.value);
+			 		date_fin.val(dateSelected);
+			 		$factures.display.displayInvoiceList(typeDate.val(), date_debut.val(), date_fin.val(), type.val(), statut.val(), modePaiement.val());
 			 	}
 			});
-			typeDate.addEventListener("change", function(){
-				$factures.display.displayInvoiceList(typeDate.value, date_debut.value, date_fin.value, type.value, statut.value, modePaiement.value);
+			typeDate.on("change", function(){
+				$factures.display.displayInvoiceList(typeDate.val(), date_debut.val(), date_fin.val(), type.val(), statut.val(), modePaiement.val());
 			});
-			statut.addEventListener("change", function(){
-				$factures.display.displayInvoiceList(typeDate.value, date_debut.value, date_fin.value, type.value, statut.value, modePaiement.value);
+			statut.on("change", function(){
+				$factures.display.displayInvoiceList(typeDate.val(), date_debut.val(), date_fin.val(), type.val(), statut.val(), modePaiement.val());
 			});
-			type.addEventListener("change", function(){
-				$factures.display.displayInvoiceList(typeDate.value, date_debut.value, date_fin.value, type.value, statut.value, modePaiement.value);
+			type.on("change", function(){
+				$factures.display.displayInvoiceList(typeDate.val(), date_debut.val(), date_fin.val(), type.val(), statut.val(), modePaiement.val());
 			});
-			modePaiement.addEventListener("change", function(){
-				$factures.display.displayInvoiceList(typeDate.value, date_debut.value, date_fin.value, type.value, statut.value, modePaiement.value);
+			modePaiement.on("change", function(){
+				$factures.display.displayInvoiceList(typeDate.val(), date_debut.val(), date_fin.val(), type.val(), statut.val(), modePaiement.val());
 			});
-		 	sort_lab.addEventListener("click", function(){
-		 		$factures.display.displayInvoiceList(typeDate.value, date_debut.value, date_fin.value, type.value, statut.value, modePaiement.value, 'NOM_FOURNISSEUR');
+		 	sort_lab.on("click", function(){
+		 		$factures.display.displayInvoiceList(typeDate.val(), date_debut.val(), date_fin.val(), type.val(), statut.val(), modePaiement.val(), 'NOM_FOURNISSEUR');
 		 	});
-		 	sort_invoice_date.addEventListener("click", function(){
-		 		$factures.display.displayInvoiceList(typeDate.value, date_debut.value, date_fin.value, type.value, statut.value, modePaiement.value, 'DATE_FACTURE');
+		 	sort_invoice_date.on("click", function(){
+		 		$factures.display.displayInvoiceList(typeDate.val(), date_debut.val(), date_fin.val(), type.val(), statut.val(), modePaiement.val(), 'DATE_FACTURE');
 		 	});
-		 	sort_payment_date.addEventListener("click", function(){
-		 		$factures.display.displayInvoiceList(typeDate.value, date_debut.value, date_fin.value, type.value, statut.value, modePaiement.value, 'DATE_ECHEANCE');
+		 	sort_payment_date.on("click", function(){
+		 		$factures.display.displayInvoiceList(typeDate.val(), date_debut.val(), date_fin.val(), type.val(), statut.val(), modePaiement.val(), 'DATE_ECHEANCE');
 		 	}); 
-		 	sort_type.addEventListener("click", function(){
-		 		$factures.display.displayInvoiceList(typeDate.value, date_debut.value, date_fin.value, type.value, statut.value, modePaiement.value, 'CODE_TYPE');
+		 	sort_type.on("click", function(){
+		 		$factures.display.displayListeFactureslayInvoiceList(typeDate.val(), date_debut.val(), date_fin.val(), type.val(), statut.val(), modePaiement.val(), 'CODE_TYPE');
 		 	}); 
-		 	sort_amount.addEventListener("click", function(){
-		 		$factures.display.displayInvoiceList(typeDate.value, date_debut.value, date_fin.value, type.value, statut.value, modePaiement.value, 'MONTANT_TTC');
+		 	sort_amount.on("click", function(){
+		 		$factures.display.displayInvoiceList(typeDate.val(), date_debut.val(), date_fin.val(), type.val(), statut.val(), modePaiement.val(), 'MONTANT_TTC');
 		 	}); 
-		 	sort_status.addEventListener("click", function(){
-		 		$factures.display.displayInvoiceList(typeDate.value, date_debut.value, date_fin.value, type.value, statut.value, modePaiement.value, 'CODE_STATUT');
+		 	sort_status.on("click", function(){
+		 		$factures.display.displayInvoiceList(typeDate.val(), date_debut.val(), date_fin.val(), type.val(), statut.val(), modePaiement.val(), 'CODE_STATUT');
 		 	}); 
-		 	sort_payment.addEventListener("click", function(){
-		 		$factures.display.displayInvoiceList(typeDate.value, date_debut.value, date_fin.value, type.value, statut.value, modePaiement.value, 'CODE_MODE_PAIEMENT');
+		 	sort_payment.on("click", function(){
+		 		$factures.display.displayInvoiceList(typeDate.val(), date_debut.val(), date_fin.val(), type.val(), statut.val(), modePaiement.val(), 'CODE_MODE_PAIEMENT');
 		 	});
 
 			$.each(liste[1], function (invoiceKey, invoiceRecord) {
-				var tableEcheancier = document.getElementById("echeancier"), row = tableEcheancier.insertRow(-1), nomFournisseur = invoiceRecord.NOM_FOURNISSEUR, dateFacture = invoiceRecord.DATE_FACTURE, codeType = invoiceRecord.CODE_TYPE, descType = invoiceRecord.DESC_NATURE, dateEcheance = invoiceRecord.DATE_ECHEANCE, montant_TTC = invoiceRecord.MONTANT_TTC, codeStatut = invoiceRecord.CODE_STATUT, descStatut = invoiceRecord.DESC_STATUT, codeModePaiement = invoiceRecord.CODE_MODE_PAIEMENT, descModePaiement = invoiceRecord.DESC_PAIEMENT, commentaires = invoiceRecord.COMMENTAIRES, idFacture = invoiceRecord.ID_FACTURE, cell = row.insertCell(-1);
+				var tableEcheancier = $("#echeancier"), 
+				// row = tableEcheancier.insertRow(-1), 
+				nomFournisseur = invoiceRecord.NOM_FOURNISSEUR, 
+				dateFacture = invoiceRecord.DATE_FACTURE, 
+				codeType = invoiceRecord.CODE_TYPE, 
+				descType = invoiceRecord.DESC_NATURE, 
+				dateEcheance = invoiceRecord.DATE_ECHEANCE, 
+				montant_TTC = invoiceRecord.MONTANT_TTC, 
+				codeStatut = invoiceRecord.CODE_STATUT, 
+				descStatut = invoiceRecord.DESC_STATUT, 
+				codeModePaiement = invoiceRecord.CODE_MODE_PAIEMENT, 
+				descModePaiement = invoiceRecord.DESC_PAIEMENT, 
+				commentaires = invoiceRecord.COMMENTAIRES, 
+				idFacture = invoiceRecord.ID_FACTURE;
+				// cell = row.insertCell(-1);
 
-				chkBx = document.createElement("INPUT");
-				$js.setAttributes(chkBx, {"type": "checkbox", "id": "sousTotalChkbx", "name": "sousTotalChkbx", "onclick": "addValue();", "value": montant_TTC});
-				cell.appendChild(chkBx);
-		  	var cell = row.insertCell(-1);
-		  	$js.setAttributes(cell, {"class": "dateEcheance"});
-		  	cell.appendChild(document.createTextNode(dateEcheance));
-		  	var cell = row.insertCell(-1);
-		  	$js.setAttributes(cell, {"class": "nomFournisseur","value": idFacture});
-		  	var linkInvoice = document.createElement('a');
-		  	$js.setAttributes(linkInvoice, {'href': '#'});
-		  	linkInvoice.appendChild(document.createTextNode(nomFournisseur));
-		  	$js.setAttributes(linkInvoice, {'onclick': "$factures.management.newInvoice(" + idFacture + ", 'UPDATE', '" + liste[0]['dateType'] + "', '" + liste[0]['date_debut'] + "', '" + liste[0]['date_fin'] + "', " + liste[0]['codeType'] + ", " + liste[0]['statut'] + ", " + liste[0]['modePaiement'] + ");"});
-		  	cell.appendChild(linkInvoice);
-		  	var inputIdFacture = document.createElement('INPUT');
-		  	$js.setAttributes(inputIdFacture, {"type": "hidden", "class": "idFacture", "value": idFacture});
-		  	cell.appendChild(inputIdFacture);
-		  	var cell = row.insertCell(-1);
-		  	cell.appendChild(document.createTextNode(dateFacture));
-				var cell = row.insertCell(-1);
-				cell.appendChild(document.createTextNode(descType));
-		  	var cell = row.insertCell(-1);
-		  	cell.style.textAlign = "right";
-		  	cell.appendChild(document.createTextNode(montant_TTC + " €"));
-		  	var cell = row.insertCell(-1);
-		  	cell.appendChild(document.createTextNode(descStatut));
-		  	var cell = row.insertCell(-1);
-		  	cell.appendChild(document.createTextNode(descModePaiement));
-		  	var cell = row.insertCell(-1);
-		  	cell.appendChild(document.createTextNode(commentaires));
-		  	var cell = row.insertCell(-1);
-				validateButton(idFacture,liste[0]['dateType'], liste[0]['date_debut'], liste[0]['date_fin'], liste[0]['codeType'], liste[0]['statut'], liste[0]['modePaiement'], cell);
-				var cell = row.insertCell(-1);
-				deleteButton(idFacture,liste[0]['dateType'], liste[0]['date_debut'], liste[0]['date_fin'], liste[0]['codeType'], liste[0]['statut'], liste[0]['modePaiement'], cell);
+				chkBx = $('<input>').attr({
+					"type": "checkbox", 
+					"id": "sousTotalChkbx", 
+					"name": "sousTotalChkbx", 
+					"onclick": "addValue();", 
+					"value": montant_TTC
+				});
+				linkInvoice = $('<a>').attr({'href': '#', 
+					'onclick': "$factures.management.newInvoice(" + idFacture + ", 'UPDATE', '" + liste[0]['dateType'] + "', '" + liste[0]['date_debut'] + "', '" + liste[0]['date_fin'] + "', " + liste[0]['codeType'] + ", " + liste[0]['statut'] + ", " + liste[0]['modePaiement'] + ");"});
+				inputIdFacture = $('<input>').attr({"type": "hidden", "class": "idFacture", "value": idFacture});
+				linkInvoice.text(nomFournisseur);
+				linkValidate = $('<a>').attr({'href': "#"}).append($('<img>').attr({"src": $factures.imgValidate}));
+				if(liste[0]['statut']<3){
+					linkValidate.attr({'onclick': "$factures.management.invoiceNextStatut(" + idFacture + ",'" + liste[0]['dateType']  + "','" + liste[0]['date_debut'] + "','" + liste[0]['date_fin'] + "', " + liste[0]['codeType'] + ", " + liste[0]['statut'] + ", " + liste[0]['modePaiement'] + ");"});
+				}
+				linkDelete = $('<a>').attr({'href': "#", 'onclick': "$factures.management.deleteInvoice(" + idFacture + ",'" + liste[0]['dateType']  + "','" + liste[0]['date_debut'] + "','" + liste[0]['date_fin'] + "', " + liste[0]['codeType'] + ", " + liste[0]['statut'] + ", " + liste[0]['modePaiement'] + ");"}).append($('<img>').attr({"src": $factures.imgDelete}));
+
+				tableEcheancier.find('tbody').append($('<tr><td align="center">'));
+				tableEcheancier.find('tbody tr td').last().append( chkBx ).append(inputIdFacture);
+				tableEcheancier.find('tbody tr').last().append('<td class="dateEcheance">' + dateEcheance + '</td>');
+				tableEcheancier.find('tbody tr').last().append('<td class="nomFournisseur" value="' + idFacture + '">');
+				tableEcheancier.find('tbody tr td').last().append( linkInvoice );
+			  	tableEcheancier.find('tbody tr').last().append('<td>' + dateFacture + '</td>');
+			  	tableEcheancier.find('tbody tr').last().append('<td>' + descType + '</td>');
+			  	tableEcheancier.find('tbody tr').last().append('<td align="right">' + montant_TTC + ' €</td>');
+				tableEcheancier.find('tbody tr').last().append('<td>' + descStatut + '</td>');
+				tableEcheancier.find('tbody tr').last().append('<td>' + descModePaiement + '</td>');
+				tableEcheancier.find('tbody tr').last().append('<td>' + commentaires + '</td>');
+				tableEcheancier.find('tbody tr').last().append('<td>');
+				tableEcheancier.find('tbody tr td').last().append(linkValidate);
+				tableEcheancier.find('tbody tr').last().append('<td>');
+				tableEcheancier.find('tbody tr td').last().append(linkDelete);
 		 	}, "json");	 	
 		});
 	}
-	function validateButton(idFacture,dateType, date_debut, date_fin, codeType, statut, modePaiement, cell){
-		var linkValidate = document.createElement("a");
-		var imgValidate = document.createElement('IMG');
-		$js.setAttributes(imgValidate, {"src": $factures.imgValidate});
-		linkValidate.appendChild(imgValidate);
-		$js.setAttributes(linkValidate, {'href': "#"});
-		if(statut<3){
-			$js.setAttributes(linkValidate, {'onclick': "$factures.management.invoiceNextStatut(" + idFacture + ",'" + dateType  + "','" + date_debut + "','" + date_fin + "', " + codeType + ", " + statut + ", " + modePaiement + ");"});
-		}
-		cell.appendChild(linkValidate);
-	}
-	function deleteButton(idFacture,dateType, date_debut, date_fin, codeType, statut, modePaiement, cell){
-		var linkDelete = document.createElement("a");
-		var imgDelete = document.createElement('IMG');
-		$js.setAttributes(imgDelete, {"src": $factures.imgDelete});
-		linkDelete.appendChild(imgDelete);
-		$js.setAttributes(linkDelete, {'href': "#", 'onclick': "$factures.management.deleteInvoice(" + idFacture + ",'" + dateType  + "','" + date_debut + "','" + date_fin + "', " + codeType + ", " + statut + ", " + modePaiement + ");"});
-		cell.appendChild(linkDelete);	
-	}
+
 	function displayFactures(liste){
 		$.get($factures.echeancierOverviewSnippet, function (codeHtml){
 			var year = liste[0]['YEAR'], nextYear = year + 1, previousYear = year - 1;

@@ -1,0 +1,78 @@
+	<div class="row justify-content-start align-items-center no-gutters text-center container" id="filter">
+		<div class="col-xl">
+			<label>Date</label><br>
+			<select id="type_date" name="type_date">
+				<option value="dateEcheance">Date d'échéance</option>
+				<option value="dateFacture">Date de facture</option>
+			</select>
+		</div>
+		<div class="col-xl">
+			<label>Du </label><br>
+			<input id="date_debut" name="date_debut" type="text" class="datepicker" size=10 readonly>
+		</div>
+		<div class="col-xl">
+			<label>Au </label><br>
+			<input id="date_fin" name="date_fin" type="text" class="datepicker" size=10 readonly>
+		</div>
+		<div class="col-xl">
+			<label>Type</label><br>
+			<select id="type" name="type">
+				<option value=0>Tous</option>
+				<option value=1>Facture</option>
+				<option value=2>Avoir</option>
+				<option value=3>RFA</option>
+				<option value=4>Prestation</option>
+			</select>		
+		</div>
+		<div class="col-xl">
+			<label>Statut</label><br>
+			<select id="etat" name="etat">
+				<option value=0>Tous</option>
+				<option value=1>Saisie</option>
+				<option value=2>Validée</option>
+				<option value=3>Réglée</option>
+				<option value=4>Réclamation</option>
+			</select>
+		</div>
+
+		<div class="col-xl-2">
+			<label>Type de règlement</label><br>
+				<select id="mode_paiement" name="mode_paiement">
+					<option value=0>Tous</option>
+					<option value=1>LCR</option>
+					<option value=2>Chèque</option>
+					<option value=3>Prélèvement</option>
+					<option value=4>Virement</option>
+					<option value=5>CB</option>
+					<option value=6>Espèces</option>
+				</select>				
+		</div>
+		<div class="col-xl">
+			<label>Sous-total</label><br>
+			<div id="sous_total" readonly> 0.00 €</div>
+		</div>
+		<div class="col-xl">
+			<button id="grouper">Valider/Regler</button>		
+		</div>
+		<div class="col-xl">
+		</div>
+
+	</div>
+
+	<div>
+		<table id="echeancier" class="table table-bordered table-hover table-sm">
+			<tr class="thead-dark">
+				<th width="3%">Grouper</th>
+				<th width="11%">Date échéance<img id="sort_payment_date" src="./images/ico_sort_asc.png" width="15" height="15"></th>			
+				<th width="18%">Fournisseur<img id="sort_lab" src="./images/ico_sort_asc.png" width="15" height="15"></th>
+				<th width="11%">Date facture<img id="sort_invoice_date" src="./images/ico_sort_asc.png" width="15" height="15"></th>
+				<th width="8%">Type<img id="sort_type" src="./images/ico_sort_asc.png" width="15" height="15"></th>
+				<th width="10%">Montant<img id="sort_amount" src="./images/ico_sort_asc.png" width="15" height="15"></th>
+				<th width="8%">Statut<img id="sort_status" src="./images/ico_sort_asc.png" width="15" height="15"></th>
+				<th width="10%">Règlement<img id="sort_payment" src="./images/ico_sort_asc.png" width="15" height="15"></th>
+				<th width="18%">Commentaires</th>
+				<th width="3%">Val</th>
+				<th width="3%">Sup</th>
+			</tr>
+		</table>
+	</div>

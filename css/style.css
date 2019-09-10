@@ -1,0 +1,106 @@
+body{
+	font-family: 'Oxygen', sans-serif;
+	font-size: 14px;
+	background-color: #FFFFFFFF;
+	/*color: #fff;*/
+}
+table tr td select{
+	width:178px;
+}
+th{
+	text-align: center;
+	font-size: 0.9em;
+}
+/** HEADER **/
+.navbar{
+	background-color: #D6D6D6;
+	border-radius: 0;
+	border:0;
+	padding:0 .5rem;
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.dropdown-menu{
+	background-color: #D6D6D6;
+}
+.dropdown-item{
+	color: #2E80D0FF;
+	font-weight: bold;	
+}
+#header-nav {
+	position: fixed;
+	right: 0px;
+	left: 0px;
+	top: 0px;
+	z-index: 10;
+	font-size: 1.3em;
+	font-weight: bold;
+}
+
+#filter {
+	position: fixed;
+	overflow: auto;
+	top: 43px;
+	background-color: #FFFFFF;
+	z-index: 5;
+}
+/** END HEADER **/
+
+#main-content{
+	z-index: auto;
+	margin-top: 110px;
+}
+
+/** CA par taux de TVA **/
+.main-title{
+	font-size: 2em;
+	font-weight: bold;
+	text-align: center;
+}
+.col{
+	border:1px solid black;
+}
+.table_CA_title{
+	border:1px solid black;
+	font-size:1.3em;
+	font-weight:bold;
+	background-color: #FFFFFF;
+}
+.categories{
+	width: 340px;
+	border:0;
+}
+
+#results.dropdown-menu{
+	left: inherit;
+	top: inherit;
+}
+#echeancier{
+	font-size: 1.2em;
+}
+
+/*#groupDiv {
+	display: none;
+	position: absolute;
+	left:17em;
+	width: 80em;
+	float: right;
+	opacity: 0.9;
+	background-color: #000000;
+	z-index: 1;
+}*/
+
+/*#echeancier table{
+	width: 95%;
+	align: center;
+	font-size: 0.8em;
+}
+#echeancier table, th, tr{
+	text-align: center;
+		border: 1px solid black;
+}*/
+
+
+

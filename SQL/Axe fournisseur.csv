@@ -1,0 +1,144 @@
+1;OCP;1001;3;300;;1
+2;Abbvie;1002;1;60;;1
+3;Abm Pharma;1002;1;310;;1
+4;Alfa Pharma;1002;3;60;;1
+5;Alliance Healthcare;1002;1;60;;1
+6;Altawin;1002;3;30;;1
+7;Astra Zeneca;1002;1;60;;1
+8;Avene;1002;1;60;;1
+9;Bayer Santé;1002;1;60;;1
+10;Boehringer;1002;1;60;;1
+11;Boiron;1002;3;300;;1
+12;Bouchara;1002;1;60;;1
+13;Centrale des Pharmaciens;1002;3;315;;1
+14;Codexial;1002;1;60;;1
+15;Coloral;1002;3;60;;1
+16;Comptoir des Pharmaciens;1002;3;15;;1
+17;Concordia;1002;1;60;;1
+18;Cooper;1002;1;60;;1
+19;Daiichi;1002;1;60;;1
+20;Delpech;1002;1;15;;1
+21;Aredis;1002;1;20;;1
+22;Distriparaph;1002;1;450;;1
+23;Donjoy;1002;1;315;;1
+24;Dr medical;1002;1;60;;1
+25;DTF;1002;1;60;;1
+26;Escale Santé;1002;2;0;;1
+27;Etradi;1002;1;30;;1
+28;Euromedis;1002;1;60;;1
+29;Galderma;1002;1;60;;1
+30;Gallia;1002;1;450;;1
+31;Gibaud;1002;1;60;;1
+32;Gifrer;1002;1;60;;1
+33;GSK;1002;1;60;;1
+34;HRA Pharma;1002;1;60;;1
+35;Idim Pharma;1002;1;60;;1
+36;Iprad;1002;1;60;;1
+37;Janssen;1002;1;60;;1
+38;LCA;1002;1;300;;1
+39;Lifescan;1002;1;60;;1
+40;Lohmann & Raucher;1002;1;450;;1
+41;Medical Z;1002;1;60;;1
+42;Mediflux;1002;1;60;;1
+43;Mediwin;1002;3;60;;1
+44;Merck;1002;1;450;;1
+45;MSD;1002;1;450;;1
+46;Mylan;1002;3;60;;1
+47;Omron;1002;1;60;;1
+48;Orkyn;1002;1;30;;1
+49;Parapharmacie;1002;1;60;;1
+50;Pfizer;1002;1;60;;1
+51;Phictal;1002;3;7;;1
+52;Pierre Fabre Santé;1002;1;60;;1
+53;Polidis;1002;1;60;;1
+54;Procter & Gamble;1002;1;60;;1
+55;Reckitt Benckiser;1002;1;60;;1
+56;Roche;1002;1;60;;1
+57;Roche diabète;1002;1;60;;1
+58;Roge Cavaillès;1002;1;60;;1
+59;Sanofi;1002;1;60;;1
+60;Sanofi Pasteur;1002;1;60;;1
+61;Skills in Healthcare;1002;1;60;;1
+62;Sodia;1002;1;60;;1
+63;Teva Santé;1002;1;60;;1
+64;Thuasne;1002;1;30;;1
+65;UCB Pharma;1002;1;60;;1
+66;UPSA;1002;1;60;;1
+67;Urgo;1002;1;60;;1
+68;Vastel Santé;1002;1;60;;1
+69;VIIV;1002;1;60;;1
+70;Veolia idf snc;2001;1;60;;1
+71;EDF;2001;3;60;;1
+72;Divers fournitures entretien équipement;2002;1;60;;1
+73;Stanley solutions;2003;3;60;;1
+74;Val dOise Habitat;2004;5;60;;1
+75;Parking;2004;1;60;;1
+76;Winpharma;2005;3;60;;1
+77;Cegelease Alliadis;2005;3;60;Leasing matériel informatique;1
+78;Alliadis idf;2005;3;60;Contrat de service BCB et Dexhter;1
+79;Smart RX;2005;3;60;Maintenance informatique;1
+80;Alliance software;2005;3;60;Abonnement ADSL;1
+81;Sagem monetel;2005;3;60;Terminal carte vitale;1
+82;Divers informatique;2005;1;60;;1
+83;Lacroix;2006;1;60;;1
+84;EB Neon;2006;1;60;;1
+85;Saint-Maclou;2006;1;60;;1
+86;Jouffroy serrures;2006;1;60;;1
+87;Lodico;2006;1;60;;1
+88;ERCEA;2006;1;60;;1
+89;La Médicale de France;2007;1;60;;1
+90;Generali Vie;2007;3;60;Assurance prêt bancaire;1
+91;Moniteur des Pharmaciens;2008;1;60;;1
+92;Vidal;2008;1;60;;1
+93;Farmagest GEDEA expertise;2009;2;30;;1
+94;Styl Pack;2010;2;60;;1
+95;Promoplast;2010;1;60;;1
+96;Pourboires;2011;6;60;;1
+97;Lafayette;2011;1;60;;1
+98;Toyota;2012;3;0;;1
+99;Nespresso;2013;1;0;;1
+100;La Poste;2014;5;60;;1
+101;Orange;2015;3;10;;1
+102;Bouygues Telecom;2015;3;60;;1
+103;Xiring;2015;3;60;Terminal carte vitale;1
+104;Euro Information;2015;3;60;Centre de gestion des FSE;1
+105;CIC;2016;3;60;;1
+106;BNP Paribas esprit libre pro;2016;3;60;;1
+107;BNP Paribas PEE PERCOI;2016;3;60;;1
+108;BNP Paribas securite pro;2016;3;60;Protection des moyens de paiements;1
+109;BNP Paribas commission de remise CB;2016;3;60;;1
+110;La Banque Postale;2016;3;60;;1
+111;Ingenico;2016;3;60;Terminal CB;1
+112;Appel medical;2017;1;60;;1
+113;Mobile Pharma;2017;1;60;;1
+114;CNOP;2018;1;60;Conseil National de lOrdre des Pharmaciens;1
+115;FSFP;2018;1;60;;1
+116;Centrale des Pharmaciens;2018;3;60;;1
+117;Atoopharm;2019;1;60;;1
+118;Actalians;3001;1;60;;1
+119;CCIV;3001;1;60;;1
+120;Opcalia;3001;1;60;;1
+121;TVA;3002;3;60;;1
+122;Cotisations sur les valeurs ajoutees;3003;3;60;;1
+123;Impots sur les sociétes;3004;3;60;;1
+124;Rémunerations;4001;1;60;;1
+125;Abondement;4002;1;60;;1
+126;URSSAF NONG;4003;3;60;;1
+127;URSSAF TANG;4003;3;60;;1
+128;URSSAF de paris;4003;3;60;;1
+129;Klésia;4004;3;60;;1
+130;Primamut;4004;3;60;;1
+131;RAM;4005;3;60;;1
+132;Harmonie mutuelle;4005;3;60;;1
+133;Spirica;4006;3;60;;1
+134;CAVP;4007;3;60;;1
+135;Ametif;4008;1;60;;1
+136;CICE;4009;3;60;;1
+137;Cheque dejeuner;4010;1;60;;1
+138;Endered;4010;1;60;;1
+139;Kadeos;4010;1;60;;1
+140;Pharmedicom;1002;4;30;;1
+141;Amazon;2005;2;0;;1
+142;Ventes-privees;2005;2;0;;1
+143;Inkadoo;2002;5;0;;1
+144;Directlog;1002;1;60;;1

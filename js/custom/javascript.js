@@ -35,25 +35,21 @@
 // Sous total pour le regroupement de factures
 function addValue() {
   var somme = 0;
-  var sousTotalDisplay = document.getElementById("sous_total");
-  var chkBx = document.getElementsByTagName("INPUT");
-  // var chkBx = document.getElementByTagName("sousTotalChkbx");
-  for(let i = 0, length1 = chkBx.length; i < length1; i++){
-    if((chkBx[i].type == "checkbox") && chkBx[i].checked) {
-      somme += parseFloat(chkBx[i].value);
-    }
+  var sousTotalDisplay = $("#sous_total");
+  var chkBx = $('[type="checkbox"]');
+  for(let i = 0, length = chkBx.length; i < length; i++){
+    if(chkBx[i].checked) somme += parseFloat(chkBx[i].value);
   }
-  sousTotalDisplay.innerHTML = Number(somme).toFixed(2) + " €";
+  sousTotalDisplay.html(Number(somme).toFixed(2) + " €");
 }
-
 
 
 // Recupere l'objet SELECT ayant l'identifiant elementId et met la valeur par defaut 'etat'
 function optionSelect(etat, elementId) {
-  var select = document.getElementById(elementId);
-  for (var i = 0; i < select.options.length; i++) {
-    if (select.options[i].value == etat) {
-      select.options[i].selected = "true";
+  var select = $(elementId);
+  for (var i = 0; i < select.children('option').length; i++) {
+    if (select.children('option').eq(i).val() ==  etat) {
+      select.children('option').eq(i).prop('selected',true);
     }
   }
 }

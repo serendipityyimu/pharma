@@ -4,59 +4,58 @@
 ****************************************************************************************************************************
 ****************************************************************************************************************************/
 
-var listeFournisseurs = './data/liste_fournisseurs.php?s=', fournisseur = document.getElementById('laboratoire'),results = document.getElementById('results'), 
-  selectedResult = -1, // Permet de savoir quel résultat est sélectionné : -1 signifie "aucune sélection"
-  previousRequest, // On stocke notre précédente requête dans cette variable
-  previousValue=fournisseur.value;// On fait de même avec la précédente valeur
 
-fournisseur.addEventListener('keyup', function(e) {
-  var divs = results.getElementsByTagName('div');
-  if (e.keyCode == 38 && selectedResult > -1) { // Si la touche pressée est la flèche "haut"
-    divs[selectedResult--].className = '';
-    if (selectedResult > -1) { // Cette condition évite une modification de childNodes[-1], qui n'existe pas, bien entendu
-      divs[selectedResult].className = 'result_focus';
-    }
-  } 
-  else if (e.keyCode == 40 && selectedResult < divs.length - 1) { // Si la touche pressée est la flèche "bas" 
-    results.style.display = 'block'; // On affiche les résultats  
-    if (selectedResult > -1) { // Cette condition évite une modification de childNodes[-1], qui n'existe pas, bien entendu
-      divs[selectedResult].className = '';
-    } 
-    divs[++selectedResult].className = 'result_focus';  
-  }
-  else if (e.keyCode == 13 && selectedResult > -1) { // Si la touche pressée est "Entrée"
-    chooseResult(divs[selectedResult]);
-  }
-  else if (laboratoire.value != previousValue) { // Si le contenu du champ de recherche a changé
-    previousValue = laboratoire.value;
-    if (previousRequest && previousRequest.readyState < XMLHttpRequest.DONE) {
-      previousRequest.abort(); // Si on a toujours une requête en cours, on l'arrête
-    }
-    previousRequest = getResults(previousValue); // On stocke la nouvelle requête
-    selectedResult = -1; // On remet la sélection à "zéro" à chaque caractère écrit
-  }
-});
 
-$('#newInvoiceForm').on('keydown', 'input', function (event) {
-  if (event.which == 13) {
-    event.preventDefault();
-    var $this = $(event.target);
-    var index = parseFloat($this.attr('data-index'));
-    $('[data-index="' + (index + 1).toString() + '"]').focus();
-  }
-});
+// $('#laboratoire').autocomplete({
+//   source: "./data/liste_fournisseurs.php",
+//   select: function(event, ui) {
+//     event.preventDefault();
+//     $('#laboratoire').val(ui.item.id);
+//   }
+// });
+$(function() {
+var listeFournisseurs = './data/liste_fournisseurs.php', 
+    fournisseur = $('#laboratoire'),
+    results = $('#results'), 
+    selectedResult = -1, // Permet de savoir quel résultat est sélectionné : -1 signifie "aucune sélection"
+    previousRequest, // On stocke notre précédente requête dans cette variable
+    previousValue=fournisseur.value;// On fait de même avec la précédente valeur
 
-function getResults(keywords) { // Effectue une requête et récupère les résultats
-  var xhr = getXMLHttpRequest();
-  xhr.open('GET', listeFournisseurs + encodeURIComponent(keywords));
-  xhr.addEventListener('readystatechange', function() {
-    if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-      displayResults(xhr.responseText);
+var arrayReturn = [];
+  $.get({url: listeFournisseurs, success: function(data) {
+    $.each(JSON.parse(data), function(key, value) {
+      arrayReturn.push({'id': value.id, 'value': value.name, 'echeance': value.echeance, 'mode_reglement': value.mode_reglement});
+    });
+    loadSuggestions(arrayReturn);
     }
   });
-  xhr.send(null);
-  return xhr;
-}
+
+
+  function loadSuggestions(options) {
+    $('#laboratoire').autocomplete({
+      source: options,
+      select: function(event, ui) {
+        $('#result').html(ui.item.echeance);
+        $('<div>').attr({'id': ui.item.id, 'echeance': ui.item.echeance, 'mode_reglement': ui.item.mode_reglement, 'className': 'dropdown-item'}).html(ui.item.value);
+
+          laboratoire.value = ui.item.value; // On change le contenu du champ de recherche et on enregistre en tant que précédente valeur
+  id_lab.value= ui.item.id;
+  mode_paiement.value = ui.item.mode_reglement;
+  // laboratoire.attr('data-echeance', ui.item.echeance);
+  console.log(laboratoire);
+  
+  laboratoire.focus(); // Si le résultat a été choisi par le biais d'un clique alors le focus est perdu, donc on le réattribue
+
+      }
+    }); 
+  }
+});
+
+
+
+
+
+
 
 function displayResults(response) { // Affiche les résultats d'une requête
   var json_response = JSON.parse(response);
@@ -81,9 +80,10 @@ function displayResults(response) { // Affiche les résultats d'une requête
 function chooseResult(result) { // Choisi un des résultats d'une requête et gère tout ce qui y est attaché
   laboratoire.value = previousValue = result.innerHTML; // On change le contenu du champ de recherche et on enregistre en tant que précédente valeur
   id_lab.value= result.id;
-  mode_paiement.value = result.getAttribute('mode_reglement');
-  laboratoire.setAttribute('data-echeance', result.getAttribute('echeance'));
-  results.style.display = 'none'; // On cache les résultats
+  mode_paiement.value = result.attr('mode_reglement');
+  laboratoire.attr('data-echeance', result.attr('echeance'));
+  console.log(laboratoire);
+  results.hide(); // On cache les résultats
   result.className = ''; // On supprime l'effet de focus
   selectedResult = -1; // On remet la sélection à "zéro"
   laboratoire.focus(); // Si le résultat a été choisi par le biais d'un clique alors le focus est perdu, donc on le réattribue

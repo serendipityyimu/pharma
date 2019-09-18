@@ -11,7 +11,8 @@
       var propToReplace = "{{" + propName + "}}";
       string = string.replace(new RegExp(propToReplace, "g"), propValue);
       return string;
-    },   
+    }
+    ,   
     //Permet de charger des scripts javascript une fois la page html chargée
     loadScript: function (selector, script) {
       var targetElem = document.querySelector(selector);
@@ -20,13 +21,14 @@
       DSLScript.type = "text/javascript";
       targetElem.appendChild(DSLScript);
       targetElem.removeChild(DSLScript);
-    },
-    //Permets d'attribuer plusieurs attributs a un element
-    setAttributes: function (element, attributes) {
-      for(var key in attributes) {
-        element.setAttribute(key, attributes[key]);
-      }
     }
+    // ,
+    //Permets d'attribuer plusieurs attributs a un element
+    // setAttributes: function (element, attributes) {
+    //   for(var key in attributes) {
+    //     element.setAttribute(key, attributes[key]);
+    //   }
+    // }
   };
   global.$js = js;
 })(window);

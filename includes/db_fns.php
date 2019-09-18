@@ -6,45 +6,24 @@
 //Last modified: 15/11/2017
 
 
-//////////// A supprimer une fois toutes connexions remplacees par execute_query ///////////////////////
-
-
-//function to execute a SQL query
-function exec_query($connection, $query){
-	$result = mysqli_query($connection, $query);
-	if($result){
-		return $result;
-	}
-	else {
-		echo 'Error executing the query.' . "<br />\n";
-		echo 'Message from MySQL:' . mysql_error($connection);
-		exit;
-	}
-}
-// Connect to the server and database for multiquery queries
-function multiquery_connect_db(){
-	$con = new mysqli(HOST, USERNAME, PASSWORD, DBNAME);
-	setlocale (LC_TIME, 'fr_FR.utf8','fra');
-	if ($con->connect_error) {
-		die("Connection failed: " . $con->connect_error);
-	}
-	return $con;
-}
-
-//////////// A supprimer une fois toutes connexions remplacees par execute_query ///////////////////////
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////       Connection to database and query mmanagement      ///////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 function connect_db(){
 	//Connection to the server and database
-	$result = mysqli_connect(HOST, USERNAME, PASSWORD, DBNAME);
-	setlocale (LC_TIME, 'fr_FR.utf8','fra');
-	if(!$result){
-		echo 'Could not connect to the server. Please try again later or contact the webmaster.';
-	}
-	else return $result;
+	// try{
+		// $pdo = new PDO('mysql:host=' . HOST . ';port=' . PORT . ';dbname=' . DBNAME . ';charset=utf8;' . , USERNAME  , PASSWORD);
+		$pdo = new PDO('mysql:host=localhost;port=3306;dbname=DEV_GESTION_ENTREPRISE;charset=utf8;', 'root' , '');
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		// $result = mysqli_connect(HOST, USERNAME, PASSWORD, DBNAME);
+		setlocale (LC_TIME, 'fr_FR.utf8','fra');
+	// }
+	// catch($err) {
+	// 	echo $err->getMessage() . '\n';
+	// 	return;
+	// }
+	 return $pdo;
 }
 //Connect to the database and execute multiple SQL queries
 function execute_multiquery($query){
@@ -67,42 +46,67 @@ function execute_multiquery($query){
 }
 //Connect to the database and execute a single SQL query
 function execute_query($query){
-	$con = mysqli_connect(HOST, USERNAME, PASSWORD, DBNAME);
-	mysqli_set_charset($con, "utf8");
+	// try{
+		// $pdo = $pdo = new PDO('mysql:host=' . HOST . ';port=' . PORT . ';dbname=' . DBNAME . ';charset=utf8' . , USERNAME  , PASSWORD);
+		$pdo = new PDO('mysql:host=localhost;port=3306;dbname=DEV_GESTION_ENTREPRISE;charset=utf8;', 'root' , '');
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		// $result = mysqli_connect(HOST, USERNAME, PASSWORD, DBNAME);
+		setlocale (LC_TIME, 'fr_FR.utf8','fra');
+	// }
+	// catch($e) {
+	// 	echo $e->getMessage() . '\n';
+	// 	return;
+	// }
 	setlocale (LC_TIME, 'fr_FR.utf8', 'fra');
-	if(!$con){
-		echo 'Could not connect to the server. Please try again later or contact the webmaster.';
-	    printf("Échec de la connexion : %s\n", mysqli_connect_error());
-    	exit();	
-	}
-	else {
-		$result = mysqli_query($con, $query);
+	// try{
+		$stmt = $pdo->query($query);
+		return $stmt;
+	// }
+	// catch($e){
+	// 	echo $e->getMessage() . '\n';
+	// 	return;		
+	// }
+
+
+	// $con = mysqli_connect(HOST, USERNAME, PASSWORD, DBNAME);
+	// mysqli_set_charset($con, "utf8");
+
+	// if(!$con){
+	// 	echo 'Could not connect to the server. Please try again later or contact the webmaster.';
+	//     printf("Échec de la connexion : %s\n", mysqli_connect_error());
+ //    	exit();	
+	// }
+	// else {
+	// 	$result = mysqli_query($con, $query);
 		
-		if($result){
-			return $result;
-		}
-		else {
-			echo 'Error executing the query.' . "<br />\n";
-			printf('Message from MySQL :', mysqli_error($con));
-			exit();
-		}
-		mysqli_close($con);
-	}
+	// 	if($result){
+	// 		return $result;
+	// 	}
+	// 	else {
+	// 		echo 'Error executing the query.' . "<br />\n";
+	// 		printf('Message from MySQL :', mysqli_error($con));
+	// 		exit();
+	// 	}
+	// 	mysqli_close($con);
+	// }
 }
 
 //Function to get the next object of the result of a query
 function next_object($result){
-	return mysqli_fetch_object($result);
+	// return mysqli_fetch_object($result);
+	return $result->fetch(PDO::FETCH_OBJ);	
 }
 
 //Function to get the next object as an array that corresponds to the fetched row
 function next_row($result){
-	return mysqli_fetch_row($result);
+	// return mysqli_fetch_row($result);
+		return $result->fetch(PDO::FETCH_LAZY);	
 }
 
 //Function to get the next object as an array (label,content) of the result of a query
 function next_line($result){
-	return mysqli_fetch_assoc($result);
+	// return mysqli_fetch_assoc($result);
+	return $result->fetch(PDO::FETCH_ASSOC);	
 }
 
 //Function to get all the results of a query in an array
@@ -130,6 +134,33 @@ function array_result_no_null($result_query){
 	return $data;
 }
 }
+
+//////////// A supprimer une fois toutes connexions remplacees par execute_query ///////////////////////
+
+
+//function to execute a SQL query
+function exec_query($connection, $query){
+	$result = mysqli_query($connection, $query);
+	if($result){
+		return $result;
+	}
+	else {
+		echo 'Error executing the query.' . "<br />\n";
+		echo 'Message from MySQL:' . mysql_error($connection);
+		exit;
+	}
+}
+// Connect to the server and database for multiquery queries
+function multiquery_connect_db(){
+	$con = new mysqli(HOST, USERNAME, PASSWORD, DBNAME);
+	setlocale (LC_TIME, 'fr_FR.utf8','fra');
+	if ($con->connect_error) {
+		die("Connection failed: " . $con->connect_error);
+	}
+	return $con;
+}
+
+//////////// A supprimer une fois toutes connexions remplacees par execute_query ///////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////    End connection to database and query management      ////////////////////////////////////

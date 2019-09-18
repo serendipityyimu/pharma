@@ -70,6 +70,17 @@
 	        if(key == 'CODE_TYPE') invoiceType = val;
 	  	});
 	  	var divContainer = $("#main-content");
+	  	// divContainer.append('<script type="text/javascript"></script>');
+	  	// console.log(divContainer);
+	  	// var script = '<script type="text/javascript" src="' + $factures.listeDynamiqueScript + '"><\/script>';
+	  	// console.log(script);
+	  	// // , {src: $factures.listeDynamiqueScript, type: 'text/javascript'});
+
+	  	// divContainer.append(script);
+	  	// $('#main-content').append($('<script>').attr({src: $factures.eventsScript, type: 'text/javascript'}));
+	  	// $('#main-content').append($('<script>').attr({src: $factures.dateScript, type: 'text/javascript'}));
+
+
 	  	$js.loadScript("#main-content", $factures.listeDynamiqueScript);
 	  	$js.loadScript("#main-content", $factures.eventsScript);
 	  	$js.loadScript("#main-content", $factures.dateScript);
@@ -83,7 +94,8 @@
 	function displayListeFactures(liste) {
 		$.get($factures.echeancierSnippet, function (codeHtml){
 			var divContainer = $("#main-content").html('').append('<div>' + codeHtml + '</div>');
-		 	$js.loadScript("#main-content", $factures.eventsScript);
+			$('#main-content').append($('<script>').attr({src: $factures.eventsScript, type: 'text/javascript'}));
+		 	// $js.loadScript("#main-content", $factures.eventsScript);
 
 		 	var typeDate = $("#type_date"), 
 			 	date_debut = $("#date_debut").val(liste[0]['date_debut']).datepicker($.datepicker.regional["fr"]).removeClass('hasDatepicker'), 

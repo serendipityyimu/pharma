@@ -19,6 +19,7 @@ function head($title){
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/MonthPicker.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Lora|Oxygen" rel="stylesheet">
+
 	</head>
 	<body>
 		<nav id="header-nav" class="navbar navbar-expand-md">
@@ -86,11 +87,15 @@ function footer($html){
 		<script src="js/custom/javascript.js"> </script>
 		<script src="js/custom/factures.js"> </script>
 		<script src="js/custom/revenus.js"> </script>
-		<script src="js/datepicker-fr.js"> </script>	
+		<script src="js/datepicker-fr.js"> </script>
+		<script type="text/javascript" src="js/custom/liste_dynamique.js"></script>
+		<script type="text/javascript" src="js/custom/events_js.js"></script>
+		<script type="text/javascript" src="js/custom/dates_js.js"></script>
 
- <!--       <script src="js/revenus.js"> </script>	  
-       <script src="js/salary.js"> </script>	  
-		<script src="js/custom/events_js.js"> </script>  
+
+ <!--       <script src="js/revenus.js"> </script>
+       <script src="js/salary.js"> </script>
+		<script src="js/custom/events_js.js"> </script>
 	   	<script src="js/MonthPicker.min.js"> </script>
 	   	<script src="js/jquery.maskedinput.min.js"> </script>
 	   	 -->
@@ -148,7 +153,7 @@ function display_CA_detail($CA_detail_N,$suivi_CA_detail){
 			<tr id='<?php echo $suivi_CA_detail;?>'>
 				<td colspan="7">
 					<table class="table table-inverse">
-<?php 	
+<?php
 		for($i=0;$i<sizeof($CA_detail_N);$i++){
 ?>
 						<tr class='table_CA_row'>
@@ -212,7 +217,7 @@ function display_input_CA_TVA($date_CA_TVA, $CA_HT_TVA_210, $CA_HT_TVA_550, $CA_
 		</table>
 	</form>
 	<!-- </div> -->
-	
+
 <?php
 }
 //***************************************************************************************************//

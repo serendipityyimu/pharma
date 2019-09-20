@@ -12,7 +12,7 @@
       string = string.replace(new RegExp(propToReplace, "g"), propValue);
       return string;
     }
-    ,   
+    ,
     //Permet de charger des scripts javascript une fois la page html chargée
     loadScript: function (selector, script) {
       var targetElem = document.querySelector(selector);
@@ -48,17 +48,16 @@ function addValue() {
 
 // Recupere l'objet SELECT ayant l'identifiant elementId et met la valeur par defaut 'etat'
 function optionSelect(etat, elementId) {
-  var select = $(elementId);
-  for (var i = 0; i < select.children('option').length; i++) {
-    if (select.children('option').eq(i).val() ==  etat) {
-      select.children('option').eq(i).prop('selected',true);
+  for (var i = 0; i < elementId.children('option').length; i++) {
+    if (elementId.children('option').eq(i).val() ==  etat) {
+      elementId.children('option').eq(i).prop('selected',true);
     }
   }
 }
 
 
 function listeSalaries(liste, elementId){
-  var divList = document.getElementById(elementId);    
+  var divList = document.getElementById(elementId);
   $.each(liste, function(index, value) {
     var item = document.createElement("a");
     $js.setAttributes(item, {"href": "#", "class": "list-group-item list-group-item-action","data-toggle": "list","id": value.SALESREP_ID});
@@ -77,15 +76,14 @@ function getXMLHttpRequest() {
       } catch(e) {
         xhr = new ActiveXObject("Microsoft.XMLHTTP");
       }
-    } 
-    else {
-      xhr = new XMLHttpRequest(); 
     }
-  } 
+    else {
+      xhr = new XMLHttpRequest();
+    }
+  }
   else {
     alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
     return null;
   }
   return xhr;
 }
-

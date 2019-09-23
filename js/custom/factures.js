@@ -104,16 +104,16 @@
 			optionSelect(liste[0]['modePaiement'], $("#mode_paiement"));
 			optionSelect(liste[0]['codeType'], $("#type"));
 
-			date_debut.datepicker({
-				onSelect: function (dateSelected, i){
-			 		$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(dateSelected).val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
-			 	}
-			});
-			date_fin.datepicker({
-				onSelect: function (dateSelected, i){
-			 		$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(dateSelected).val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
-			 	}
-			});
+			// date_debut.datepicker({
+			// 	onSelect: function (dateSelected, i){
+			//  		$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(dateSelected).val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
+			//  	}
+			// });
+			// date_fin.datepicker({
+			// 	onSelect: function (dateSelected, i){
+			//  		$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(dateSelected).val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
+			//  	}
+			// });
 			$("#type_date").on("change", function(){
 				$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
 			});
@@ -183,9 +183,9 @@
 				tableEcheancier.find('tbody tr').last().append('<td class="dateEcheance">' + dateEcheance + '</td>');
 				tableEcheancier.find('tbody tr').last().append('<td class="nomFournisseur" value="' + idFacture + '">');
 				tableEcheancier.find('tbody tr td').last().append( linkInvoice );
-			  	tableEcheancier.find('tbody tr').last().append('<td>' + dateFacture + '</td>');
-			  	tableEcheancier.find('tbody tr').last().append('<td>' + descType + '</td>');
-			  	tableEcheancier.find('tbody tr').last().append('<td align="right">' + montant_TTC + ' €</td>');
+			  tableEcheancier.find('tbody tr').last().append('<td>' + dateFacture + '</td>');
+			  tableEcheancier.find('tbody tr').last().append('<td>' + descType + '</td>');
+			  tableEcheancier.find('tbody tr').last().append('<td align="right">' + montant_TTC + ' €</td>');
 				tableEcheancier.find('tbody tr').last().append('<td>' + descStatut + '</td>');
 				tableEcheancier.find('tbody tr').last().append('<td>' + descModePaiement + '</td>');
 				tableEcheancier.find('tbody tr').last().append('<td>' + commentaires + '</td>');

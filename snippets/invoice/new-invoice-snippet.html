@@ -13,8 +13,7 @@
 						<input type="hidden" id="filter_code_type" name="FILTER_CODE_TYPE" >
 						<input type="hidden" id="filter_mode_paiement" name="FILTER_MODE_PAIEMENT" >
 						<input type="hidden" id="filter_code_statut" name="FILTER_CODE_STATUT" >
-
-						<div id="results" class="dropdown-menu"></div>
+						<!-- <div id="results" class="dropdown-menu"></div> -->
 					</div>
 				</div>
 				<div class="form-group row">
@@ -23,11 +22,11 @@
 				</div>
 				<div class="form-group row">
 					<label for="date_facture" class="col-sm-2 col-form-label">Date de facture: </label>
-					<div class="col-sm-5"><input class="form-control" id="date_facture" name="date_facture" type="text" class="datepicker" readonly data-index="4" ></div>
+					<div class="col-sm-5"><input class="form-control" id="date_facture" name="date_facture" type="date"  data-index="4" ></div>
 				</div>
 				<div class="form-group row">
 					<label for="date_echeance" class="col-sm-2 col-form-label">Date d'échéance: </label>
-					<div class="col-sm-5"><input class="form-control" id="date_echeance" name="date_echeance" type="text" class="datepicker" readonly data-index="5" ></div>
+					<div class="col-sm-5"><input class="form-control" id="date_echeance" name="date_echeance" type="date" data-index="5" ></div>
 				</div>
 				<div class="form-group row">
 					<label for="etat" class="col-sm-2 col-form-label">Etat: </label>
@@ -75,3 +74,5 @@
 				</div>
 			</div>
 		</form>
+		<script type="text/javascript" src="js/custom/liste_dynamique.js"></script>
+		<script type="text/javascript" src="js/custom/dates_js.js"></script>

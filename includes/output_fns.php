@@ -86,11 +86,14 @@ function footer($html){
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/custom/javascript.js"> </script>
 		<script src="js/custom/factures.js"> </script>
-		<script src="js/custom/revenus.js"> </script>
+		<?php
+			echo $html;
+		?>		
+		<!-- <script src="js/custom/revenus.js"> </script> -->
 		<script src="js/datepicker-fr.js"> </script>
 		<script type="text/javascript" src="js/custom/liste_dynamique.js"></script>
-		<script type="text/javascript" src="js/custom/events_js.js"></script>
-		<script type="text/javascript" src="js/custom/dates_js.js"></script>
+		<!-- <script type="text/javascript" src="js/custom/events_js.js"></script>
+		<script type="text/javascript" src="js/custom/dates_js.js"></script> -->
 
 
  <!--       <script src="js/revenus.js"> </script>
@@ -99,9 +102,7 @@ function footer($html){
 	   	<script src="js/MonthPicker.min.js"> </script>
 	   	<script src="js/jquery.maskedinput.min.js"> </script>
 	   	 -->
-<?php
-	echo $html;
-?>
+
 	</footer>
 	</body>
 </html>

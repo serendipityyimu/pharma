@@ -13,13 +13,26 @@
 		<label>Skills:</label>
 		<input type="text" id="skill_input"/>
 		<div id="result"></div>
+    <div class="form-group row">
+      <label for="date_facture" class="col-sm-2 col-form-label">Date de facture: </label>
+      <div class="col-sm-5"><input class="form-control" id="date_facture" name="date_facture" type="date"  data-index="4" ></div>
+    </div>
 	</div>
 <script type="text/javascript">
+
 $(function() {
 	var arrayReturn = [];
-	// var name = [], id = [], echeance = [], mode_reglement = [];
-	// var lab = [id, name, echeance, mode_reglement];
-
+  $('#date_facture').change(function(event, ui) {
+      console.log($('#date_facture').val());
+      var dateEcheance = new Date($('#date_facture').val());
+      console.log(dateEcheance);
+      days = parseInt(10, 10);
+      console.log(days);
+      dateEcheance.setDate(dateEcheance.getDate() + days);
+console.log(dateEcheance);
+      // dateEcheance.setDate(dateEcheance.getDate() + echeance);
+    // console.log($('#date_facture').val());
+  });
 	function copy(data) {
 		// data = JSON.parse(data);
 		// for( var i = 0, len = data.length; i < len; i++) {
@@ -30,10 +43,6 @@ $(function() {
 
 		$.each(JSON.parse(data), function(key, value) {
 			arrayReturn.push({'id': value.id, 'value': value.name, 'echeance': value.echeance, 'mode_reglement': value.mode_reglement});
-			// id.push(value.id);
-			// name.push(value.name);
-			// echeance.push(value.echeance);
-			// mode_reglement.push(value.mode_reglement);
 		});
 	}
 
@@ -43,7 +52,6 @@ $(function() {
 		});
 
 		loadSuggestions(arrayReturn);
-		console.log(arrayReturn);
 		}
 	});
 

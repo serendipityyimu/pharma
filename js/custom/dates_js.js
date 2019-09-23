@@ -24,8 +24,6 @@ var DateDiff = {
   }
 }
 
-$('#date_facture').datepicker($.datepicker.regional["fr"]);
-$('#date_echeance').datepicker($.datepicker.regional["fr"]);
 $('#date_reglement').datepicker($.datepicker.regional["fr"]);
 $('#date_debut').datepicker($.datepicker.regional["fr"]);
 $('#date_fin').datepicker($.datepicker.regional["fr"]);
@@ -39,58 +37,60 @@ function LastDayOfNextMonth(date){
   return new Date(date.getFullYear(), date.getMonth()+2,0);
 }
 
-$('#date_facture').removeClass('hasDatepicker');
-$('#date_echeance').removeClass('hasDatepicker');
+function formatDate(date) {
+  var formattedDate = date.getFullYear() + '-';
+  var month = date.getMonth() + 1;
+  if(month < 10) {
+    formattedDate += '0' + month + '-';
+  }
+  else {
+    formattedDate += month + '-';
+  }
+  if(date.getDate() < 10) {
+    formattedDate += '0' + date.getDate();
+  }
+  else {
+    formattedDate += date.getDate();
+  }
+  return formattedDate;
+}
 
-$('#date_facture').datepicker({
-  onSelect: function (dateSelected, i){
-    if (laboratoire.value) {
-      var dateEcheance = new Date($('#date_facture').datepicker('getDate'));
-      var echeance = parseInt(laboratoire.getAttribute('data-echeance'));
-      if (echeance <100) {
-        dateEcheance.setDate(dateEcheance.getDate() + echeance);
-      }
-      else if (echeance ===450) {
-        //45 jours fin de mois
-        dateEcheance.setDate(dateEcheance.getDate() + 45);
-        dateEcheance = LastDayOfMonth(dateEcheance);
-      }
-      else if (echeance ===300) {
-        //30 jours fin de mois
-        dateEcheance.setDate(dateEcheance.getDate() + 30);
-        dateEcheance = LastDayOfMonth(dateEcheance);          
-      }
-      else if (echeance ===451) {
-        //Fin de mois + 45 jours
+$('#date_facture').change(function(event, ui) {
+  if ($('#laboratoire').val()) {
+    var dateEcheance = new Date($('#date_facture').val());
+    var echeance = parseInt($('#laboratoire').attr('data-echeance'),10);
+
+    if (echeance < 100) {
+      dateEcheance.setDate(dateEcheance.getDate() + echeance);
+    } else if (echeance === 450) { //45 jours fin de mois
+      dateEcheance.setDate(dateEcheance.getDate() + 45);
+      dateEcheance = LastDayOfMonth(dateEcheance);
+    } else if (echeance === 300) { //30 jours fin de mois
+      dateEcheance.setDate(dateEcheance.getDate() + 30);
+      dateEcheance = LastDayOfMonth(dateEcheance);
+    } else if (echeance === 451) { //Fin de mois + 45 jours
+      dateEcheance = LastDayOfNextMonth(dateEcheance);
+      dateEcheance.setDate(dateEcheance.getDate() + 15);
+    } else if (echeance === 315) { // 30 jours fin de quinzaine
+      if (dateEcheance.getDate() > 15) {
         dateEcheance = LastDayOfNextMonth(dateEcheance);
+      } else {
+        dateEcheance = LastDayOfMonth(dateEcheance);
         dateEcheance.setDate(dateEcheance.getDate() + 15);
       }
-      else if (echeance ===315) {
-        // 30 jours fin de quinzaine
-        if (dateEcheance.getDate()>15) {
-          dateEcheance = LastDayOfNextMonth(dateEcheance);
-        }
-        else {
-          dateEcheance = LastDayOfMonth(dateEcheance);
-          dateEcheance.setDate(dateEcheance.getDate() + 15);
-        }
+    } else if (echeance ===550) { //55 jours fin de decade
+      if (dateEcheance.getDate() > 20) {
+        dateEcheance = LastDayOfNextMonth(dateEcheance);
+        dateEcheance.setDate(dateEcheance.getDate() + 25);
+      } else if (dateEcheance.getDate() > 10) {
+        dateEcheance = LastDayOfNextMonth(dateEcheance);
+        dateEcheance.setDate(dateEcheance.getDate() + 15);
+      } else {
+        dateEcheance = LastDayOfNextMonth(dateEcheance);
+        dateEcheance.setDate(dateEcheance.getDate() + 5);
       }
-      else if (echeance ===550) {
-        //55 jours fin de decade
-        if (dateEcheance.getDate()>20) {
-          dateEcheance = LastDayOfNextMonth(dateEcheance);
-          dateEcheance.setDate(dateEcheance.getDate() + 25);
-        }
-        else if (dateEcheance.getDate()>10) {
-          dateEcheance = LastDayOfNextMonth(dateEcheance);
-          dateEcheance.setDate(dateEcheance.getDate() + 15);
-        }
-        else {
-          dateEcheance = LastDayOfNextMonth(dateEcheance);
-          dateEcheance.setDate(dateEcheance.getDate() + 5);
-        }
-       }
-      $('#date_echeance').datepicker('setDate', dateEcheance);
     }
+    $('#date_echeance').val(formatDate(dateEcheance));
+
   }
 });

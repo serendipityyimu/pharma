@@ -88,12 +88,12 @@ function footer($html){
 		<script src="js/custom/factures.js"> </script>
 		<?php
 			echo $html;
-		?>		
+		?>
 		<!-- <script src="js/custom/revenus.js"> </script> -->
 		<script src="js/datepicker-fr.js"> </script>
 		<script type="text/javascript" src="js/custom/liste_dynamique.js"></script>
-		<!-- <script type="text/javascript" src="js/custom/events_js.js"></script>
-		<script type="text/javascript" src="js/custom/dates_js.js"></script> -->
+		<!-- <script type="text/javascript" src="js/custom/events_js.js"></script> -->
+		<!-- <script type="text/javascript" src="js/custom/dates_js.js"></script> -->
 
 
  <!--       <script src="js/revenus.js"> </script>

@@ -11,7 +11,7 @@ require_once("./includes/includes.php");
 $query = "SELECT ID_FOURNISSEUR, NOM_FOURNISSEUR, ECHEANCE, MODE_REGLEMENT FROM FOURNISSEURS ORDER BY NOM_FOURNISSEUR ASC";
 // $query = "SELECT ID_FOURNISSEUR, NOM_FOURNISSEUR, ECHEANCE, MODE_REGLEMENT FROM FOURNISSEURS ORDER BY NOM_FOURNISSEUR ASC";
 
-	$result = array_result(execute_query($query));
+	$result = array_result(executeQuery($query));
 	$dataLen = sizeof($result);
 	$results = array();
 
@@ -28,4 +28,3 @@ $query = "SELECT ID_FOURNISSEUR, NOM_FOURNISSEUR, ECHEANCE, MODE_REGLEMENT FROM 
 	}
 echo json_encode($results);
 ?>
-

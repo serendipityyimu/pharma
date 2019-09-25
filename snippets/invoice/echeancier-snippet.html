@@ -8,11 +8,11 @@
 		</div>
 		<div class="col-xl">
 			<label>Du </label><br>
-			<input id="date_debut" name="date_debut" type="text" class="datepicker" size=10 readonly>
+			<input id="date_debut" name="date_debut" type="date"  size=10 >
 		</div>
 		<div class="col-xl">
 			<label>Au </label><br>
-			<input id="date_fin" name="date_fin" type="text" class="datepicker" size=10 readonly>
+			<input id="date_fin" name="date_fin" type="date" size=10 >
 		</div>
 		<div class="col-xl">
 			<label>Type</label><br>
@@ -22,7 +22,7 @@
 				<option value=2>Avoir</option>
 				<option value=3>RFA</option>
 				<option value=4>Prestation</option>
-			</select>		
+			</select>
 		</div>
 		<div class="col-xl">
 			<label>Statut</label><br>
@@ -45,14 +45,14 @@
 					<option value=4>Virement</option>
 					<option value=5>CB</option>
 					<option value=6>Espèces</option>
-				</select>				
+				</select>
 		</div>
 		<div class="col-xl">
 			<label>Sous-total</label><br>
 			<div id="sous_total" readonly> 0.00 €</div>
 		</div>
 		<div class="col-xl">
-			<button id="grouper">Valider/Regler</button>		
+			<button id="grouper">Valider/Regler</button>
 		</div>
 		<div class="col-xl">
 		</div>
@@ -63,7 +63,7 @@
 		<table id="echeancier" class="table table-bordered table-hover table-sm">
 			<tr class="thead-dark">
 				<th width="3%">Grouper</th>
-				<th width="11%">Date échéance<img id="sort_payment_date" src="./images/ico_sort_asc.png" width="15" height="15"></th>			
+				<th width="11%">Date échéance<img id="sort_payment_date" src="./images/ico_sort_asc.png" width="15" height="15"></th>
 				<th width="18%">Fournisseur<img id="sort_lab" src="./images/ico_sort_asc.png" width="15" height="15"></th>
 				<th width="11%">Date facture<img id="sort_invoice_date" src="./images/ico_sort_asc.png" width="15" height="15"></th>
 				<th width="8%">Type<img id="sort_type" src="./images/ico_sort_asc.png" width="15" height="15"></th>
@@ -76,3 +76,5 @@
 			</tr>
 		</table>
 	</div>
+	<script type="text/javascript" src="js/custom/liste_dynamique.js"></script>
+	<!-- <script type="text/javascript" src="js/custom/events_js.js"></script> -->

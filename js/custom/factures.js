@@ -62,7 +62,6 @@
 //Revision JQuery
 	function displayNewInvoice(data) {
 		$.get($factures.newInvoiceSnippet, function (codeHtml){
-// console.log(data);
 			$("#main-content").html(codeHtml);
 			$('#laboratoire').val(data['LABORATOIRE']);
 			$('#id_lab').val(data['ID_FOURNISSEUR']);
@@ -77,12 +76,11 @@
 			$('#date_facture').val(data['DATE_FACTURE']).html(data['DATE_FACTURE']);
 			$('#date_echeance').val(data['DATE_ECHEANCE']).html(data['DATE_ECHEANCE']);
 			$('#comments').val(data['COMMENTAIRES']).html(data['COMMENTAIRES']);
-			// $("#etat").children('option').val(data['CODE_STATUT']).prop('selected',true);
-
-			// $("#etat option[value=" + data['CODE_STATUT'] + "]").prop('selected', true);
-	 		optionSelect(data['CODE_STATUT'], $("#etat"));
+			optionSelect(data['CODE_STATUT'], $("#etat"));
 	 		optionSelect(data['CODE_MODE_PAIEMENT'], $("#mode_paiement"));
 	 		optionSelect(data['CODE_TYPE'], $("#type"));
+			// $("#etat").children('option').val(data['CODE_STATUT']).prop('selected',true);
+			// $("#etat option[value=" + data['CODE_STATUT'] + "]").prop('selected', true);
 	  }, "html");
 	}
 
@@ -90,62 +88,57 @@
 
 	function displayListeFactures(liste) {
 		$.get($factures.echeancierSnippet, function (codeHtml){
-			var divContainer = $("#main-content").html('').append('<div>' + codeHtml + '</div>');
-			// $('#main-content').append($('<script>').attr({src: $factures.eventsScript, type: 'text/javascript'}));
-		 	// $js.loadScript("#main-content", $factures.eventsScript);
-
-		 	var typeDate = $("#type_date"),
-			 	date_debut = $("#date_debut").val(liste[0]['date_debut']).datepicker($.datepicker.regional["fr"]).removeClass('hasDatepicker'),
-			 	date_fin = $("#date_fin").val(liste[0]['date_fin']).datepicker($.datepicker.regional["fr"]).removeClass('hasDatepicker'),
+			var divContainer = $("#main-content").html(codeHtml);
+			var typeDate = $("#type_date"),
 			 	sort = liste[0]['sort'];
 
+				var parts = liste[0]['date_debut'].split('-');
+				var date_debut = new Date(parts[0], parts[1]-1, parts[2]);
+				parts = liste[0]['date_fin'].split('-');
+				var date_fin = new Date(parts[0], parts[1]-1, parts[2]);
+				$("#date_debut").val(formatDate(date_debut));
+				$("#date_fin").val(formatDate(date_fin));
+
+				// date_debut.setDate(new Date(liste[0]['date_fin']));
+// console.log($("#date_debut").val());
+// console.log($("#date_fin").val());
 		 	optionSelect(liste[0]['dateType'], $("#type_date"));
 			optionSelect(liste[0]['statut'], $("#etat"));
 			optionSelect(liste[0]['modePaiement'], $("#mode_paiement"));
 			optionSelect(liste[0]['codeType'], $("#type"));
 
-			// date_debut.datepicker({
-			// 	onSelect: function (dateSelected, i){
-			//  		$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(dateSelected).val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
-			//  	}
-			// });
-			// date_fin.datepicker({
-			// 	onSelect: function (dateSelected, i){
-			//  		$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(dateSelected).val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
-			//  	}
-			// });
 			$("#type_date").on("change", function(){
-				$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
+				$factures.display.displayInvoiceList($("#type_date").val(), $("#date_debut").val(), $("#date_fin").val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
 			});
 			$("#etat").on("change", function(){
-				$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
+				$factures.display.displayInvoiceList($("#type_date").val(), $("#date_debut").val(), $("#date_fin").val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
 			});
 			$("#type").on("change", function(){
-				$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
+				$factures.display.displayInvoiceList($("#type_date").val(), $("#date_debut").val(), $("#date_fin").val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
 			});
 			$("#mode_paiement").on("change", function(){
-				$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
+				$factures.display.displayInvoiceList($("#type_date").val(), $("#date_debut").val(), $("#date_fin").val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val());
 			});
 		 	$("#sort_lab").on("click", function(){
-		 		$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'NOM_FOURNISSEUR');
+		 		$factures.display.displayInvoiceList($("#type_date").val(), $("#date_debut").val(), $("#date_fin").val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'NOM_FOURNISSEUR');
 		 	});
 		 	$("#sort_invoice_date").on("click", function(){
-		 		$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'DATE_FACTURE');
+		 		$factures.display.displayInvoiceList($("#type_date").val(), $("#date_debut").val(), $("#date_fin").val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'DATE_FACTURE');
 		 	});
 		 	$("#sort_payment_date").on("click", function(){
-		 		$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'DATE_ECHEANCE');
+		 		$factures.display.displayInvoiceList($("#type_date").val(), $("#date_debut").val(), $("#date_fin").val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'DATE_ECHEANCE');
 		 	});
 		 	$("#sort_type").on("click", function(){
-		 		$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'CODE_TYPE');
+		 		$factures.display.displayInvoiceList($("#type_date").val(), $("#date_debut").val(), $("#date_fin").val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'CODE_TYPE');
 		 	});
 		 	$("#sort_amount").on("click", function(){
-		 		$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'MONTANT_TTC');
+		 		$factures.display.displayInvoiceList($("#type_date").val(), $("#date_debut").val(), $("#date_fin").val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'MONTANT_TTC');
 		 	});
 		 	$("#sort_status").on("click", function(){
-		 		$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'CODE_STATUT');
+		 		$factures.display.displayInvoiceList($("#type_date").val(), $("#date_debut").val(), $("#date_fin").val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'CODE_STATUT');
 		 	});
 		 	$("#sort_payment").on("click", function(){
-		 		$factures.display.displayInvoiceList($("#type_date").val(), date_debut.val(), date_fin.val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'CODE_MODE_PAIEMENT');
+		 		$factures.display.displayInvoiceList($("#type_date").val(), $("#date_debut").val(), $("#date_fin").val(), $("#type").val(), $("#etat").val(), $("#mode_paiement").val(), 'CODE_MODE_PAIEMENT');
 		 	});
 
 			$.each(liste[1], function (invoiceKey, invoiceRecord) {
@@ -198,9 +191,12 @@
 	function displayFactures(liste){
 		$.get($factures.echeancierOverviewSnippet, function (codeHtml){
 			var year = liste[0]['YEAR'], nextYear = year + 1, previousYear = year - 1;
-		 	codeHtml = $js.insertProperty(codeHtml, 'YEAR', year);
-		 	var divResults = $('<div>').attr({"class": "container"}).html(codeHtml);
+var divResults = $('<div>').attr({"class": "container"}).html(codeHtml);
+
+		 	// codeHtml = $js.insertProperty(codeHtml, 'YEAR', year);
+
 		 	var divContainer = $("#main-content").html('').append(divResults);
+			$('#year').html(year);
 		 	var nextYearLink = $("#nextYear").attr({"onclick": "$factures.display.displayInvoice('dateEcheance', " + nextYear + ");"});
 		 	var previousYearLink = $("#previousYear").attr({"onclick": "$factures.display.displayInvoice('dateEcheance', " + previousYear + ");"});
 		  	var table = $("#tableFactures");
@@ -212,7 +208,7 @@
 				for (var j = 0; j < 12; j++) {
 					var date_debut_month = liste[1][k].MONTH,
 					date_debut_year = liste[1][k].YEAR,
-					date_debut = '01-' + date_debut_month + '-' + date_debut_year,
+					date_debut = date_debut_year + '-' + date_debut_month + '-' + '01',
 					nextMonth = parseFloat(date_debut_month),
 					nextYear = date_debut_year;
 
@@ -222,10 +218,10 @@
 					}
 					var date_fin =new Date(nextYear, nextMonth, 0);
 					if(date_debut_month == 12){
-						date_fin = date_fin.getDate()+ '-' + date_debut_month + '-' + date_fin.getFullYear();
+						date_fin = date_fin.getFullYear()+ '-' + date_debut_month + '-' + date_fin.getDate();
 					}
 					else {
-						date_fin = date_fin.getDate()+ '-' + nextMonth + '-' + date_fin.getFullYear();
+						date_fin = date_fin.getFullYear()+ '-' + nextMonth + '-' + date_fin.getDate();
 					}
 					var code_statut = liste[1][k].CODE_STATUT;
 
